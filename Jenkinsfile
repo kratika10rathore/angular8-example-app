@@ -1,9 +1,20 @@
 pipeline {
   agent any
   stages {
-    stage('Install') {
-      steps {
-        bat 'npm update npm install'
+    stage('Install/Update') {
+      parallel {
+        stage('Update') {
+          steps {
+            bat 'npm update'
+          }
+        }
+
+        stage('Install') {
+          steps {
+            bat 'npm install'
+          }
+        }
+
       }
     }
 
